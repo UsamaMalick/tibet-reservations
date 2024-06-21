@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservation Form</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"
+    ></script>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Confirmation Form</h1>
+      <form>
+        <label for="reservation-number">Reservation Number:</label>
+        <input
+          type="number"
+          id="reservation-number"
+          name="reservation-number"
+          required
+        />
+
+        <label for="reservation-date">Date of Reservation:</label>
+        <input
+          type="date"
+          id="reservation-date"
+          name="reservation-date"
+          required
+        />
+
+        <label for="arrival-date">Guest Arrival Date:</label>
+        <input type="date" id="arrival-date" name="arrival-date" required />
+
+        <label for="departure-date">Departure Date:</label>
+        <input type="date" id="departure-date" name="departure-date" required />
+
+        <div class="number-of-nights">
+          <p id="number-of-nights-text">Number of Nights:</p>
+          <p id="number-of-nights-value" name="number-of-nights">0</p>
+        </div>
+        <label for="number-of-rooms">Number of Rooms:</label>
+        <input
+          type="number"
+          id="number-of-rooms"
+          name="number-of-rooms"
+          min="1"
+          required
+        />
+
+        <label for="guest-name">Name of Guest:</label>
+        <input type="text" id="guest-name" name="guest-name" required />
+
+        <label for="phone-number">Phone Number:</label>
+        <input type="number" id="phone-number" name="phone-number" required />
+
+        <label for="room-type">Room Type:</label>
+        <select id="room-type" name="room-type" required>
+          <option value="Standard">Standard</option>
+          <option value="Deluxe">Deluxe</option>
+          <option value="Executive">Executive</option>
+        </select>
+
+
+        <label for="discount-amount">Discount Amount (%):</label>
+        <input
+          type="number"
+          id="discount-amount"
+          name="discount-amount"
+          min="0"
+          max="100"
+          step="0.01"
+          required
+        />
+
+        <label for="advance-amount">Advance amount:</label>
+        <input
+          type="number"
+          id="advance-amount"
+          name="advance-amount"
+          min="0"
+          max="100"
+          step="0.01"
+          required
+        />
+
+        <button type="button" onclick="handleSubmit(event)">Submit</button>
+      </form>
+    </div>
+    
+    <div class="pdf-template-container">
+      <div id="pdf-template" bgcolor="#A0A0A0" vlink="blue" link="blue">
+        <div
+          id="page1-div"
+          style="position: relative; width: 894px; height: 1264px"
+        >
+          <img
+            width="894"
+            height="1264"
+            src="target001.png"
+            alt="background image"
+          />
+          <p
+            style="
+              position: absolute;
+              top: 194px;
+              left: 551px;
+              white-space: nowrap;
+            "
+            class="ft10"
+          >
+            &#160;
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 209px;
+              left: 91px;
+              white-space: nowrap;
+            "
+            class="ft115"
+          >
+            &#160;<br />&#160;<br />Dear,&#160;<span id="guest-name-2">----</span
+            
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 213px;
+              left: 342px;
+              white-space: nowrap;
+            "
+            class="ft12"
+          >
+            <b>Confirmation&#160;&#160;Letter</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 275px;
+              left: 91px;
+              white-space: nowrap;
+            "
+            class="ft116"
+          >
+            Thank&#160;you&#160;for&#160;choosing&#160;Tibet&#160;Hotel.&#160;It&#160;is&#160;our&#160;pleasure&#160;to&#160;offer&#160;your&#160;reservation
+            with&#160;<br />following&#160;details.&#160;
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 321px;
+              left: 91px;
+              white-space: nowrap;
+            "
+            class="ft13"
+          >
+            &#160;
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 336px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft14"
+          >
+            <b>RESERVATION&#160;&#160;DETAILS:</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 336px;
+              left: 315px;
+              white-space: nowrap;
+            "
+            class="ft15"
+          >
+            <b>&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 367px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Reservation&#160;No:&#160;</b>
+          </p>
+          <p
+            id="reservation-number"
+            style="
+              position: absolute;
+              top: 368px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft11"
+          >
+            ----
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 398px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Arrival&#160;Date:&#160;</b>
+          </p>
+          <p
+            id="arrival-date"
+            style="
+              position: absolute;
+              top: 397px;
+              left: 293px;
+              white-space: nowrap;
+            "
+            class="ft17"
+          >
+            ----
+          </p>
+
+          <p
+            style="
+              position: absolute;
+              top: 422px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Departure&#160;Date:&#160;</b>
+          </p>
+          <p
+            id="departure-date"
+            style="
+              position: absolute;
+              top: 421px;
+              left: 293px;
+              white-space: nowrap;
+            "
+            class="ft17"
+          >
+            ----
+          </p>
+
+          <p
+            style="
+              position: absolute;
+              top: 445px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Number&#160;of&#160;Nights:&#160;</b>
+          </p>
+          <p
+            id="no-of-nights"
+            style="
+              position: absolute;
+              top: 445px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b><span id="number-of-nights-value">----</span> Night(s)</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 468px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>No.&#160;Of&#160;Adults&#160;/&#160;Child&#160;</b>
+          </p>
+          <p
+            id="no-of-passengers"
+            style="
+              position: absolute;
+              top: 468px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>--&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 493px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Remarks:&#160;</b>
+          </p>
+          <p
+            id="remarks"
+            style="
+              position: absolute;
+              top: 493px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Confirmed&#160;&#160;Booking&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 520px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft14"
+          >
+            <b>GUEST&#160;DETAILS:</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 520px;
+              left: 245px;
+              white-space: nowrap;
+            "
+            class="ft15"
+          >
+            <b>&#160;</b>s
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 555px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Name:&#160;</b>
+          </p>
+          <p
+            id="guest-name-1"
+            style="
+              position: absolute;
+              top: 556px;
+              left: 292px;
+              white-space: nowrap;
+            "
+            class="ft19"
+          >
+            ----
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 555px;
+              left: 378px;
+              white-space: nowrap;
+            "
+            class="ft11"
+          >
+            &#160;
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 579px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Mobile:&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 577px;
+              left: 292px;
+              white-space: nowrap;
+            "
+            class="ft110"
+            id="phone-number"
+          >
+            ----
+          </p>
+
+          <p
+            style="
+              position: absolute;
+              top: 603px;
+              left: 465px;
+              white-space: nowrap;
+            "
+            class="ft14"
+          >
+            <b>&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 627px;
+              left: 329px;
+              white-space: nowrap;
+            "
+            class="ft14"
+          >
+            <b>ROOM&#160;&amp;&#160;RATE&#160;&#160;INFORMATION:</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 627px;
+              left: 602px;
+              white-space: nowrap;
+            "
+            class="ft15"
+          >
+            <b>&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 656px;
+              left: 165px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Room&#160;Types&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 656px;
+              left: 407px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Room&#160;Cost&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 656px;
+              left: 644px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Reserved&#160;Rooms&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 678px;
+              left: 147px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Standard&#160;Deluxe&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 678px;
+              left: 417px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>20,600/-&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 678px;
+              left: 702px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+          <b id="standard-deluxe-rooms-count">-</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 700px;
+              left: 181px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Deluxe&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 700px;
+              left: 417px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>25,600/-&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 700px;
+              left: 702px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+          <b id="deluxe-rooms-count">-</b>
+        </p>
+          <p
+            style="
+              position: absolute;
+              top: 722px;
+              left: 172px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Executive&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 722px;
+              left: 417px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>30,600/-&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 722px;
+              left: 702px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b id="executive-rooms-count">-</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 744px;
+              left: 98px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Total&#160;No.&#160;of&#160;Rooms&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 744px;
+              left: 287px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b
+              >&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;02&#160;(2x&#160;mattresses&#160;)&#160;</b
+            >
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 765px;
+              left: 98px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Total&#160;cost&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 765px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>PKR&#160;&#160;201,600/-&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 787px;
+              left: 98px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Discounted&#160;amount&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 787px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>PKR <span id="discount-amount">----</span> /-</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 811px;
+              left: 98px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Advance&#160;Amount&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 811px;
+              left: 296px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>PKR <span id="advance-amount">----</span> /-</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 834px;
+              left: 98px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>Remaining&#160;Amount&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 834px;
+              left: 287px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>&#160;&#160;PKR 95,760/-&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 861px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft111"
+          >
+            <b>CANCELLATION&#160;POLICY:</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 861px;
+              left: 282px;
+              white-space: nowrap;
+            "
+            class="ft16"
+          >
+            <b>&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 886px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft112"
+          >
+            <b>Guarantee&#160;Method:&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 886px;
+              left: 289px;
+              white-space: nowrap;
+            "
+            class="ft19"
+          >
+            50&#160;%&#160;advance&#160;through&#160;&#160;Bank&#160;Transfer&#160;/&#160;Cash&#160;Deposit&#160;
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 919px;
+              left: 107px;
+              white-space: nowrap;
+            "
+            class="ft112"
+          >
+            <b>Cancellation:&#160;</b>
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 910px;
+              left: 289px;
+              white-space: nowrap;
+            "
+            class="ft120"
+          >
+            <b>Cancellation&#160;&amp;&#160;refund&#160;policy&#160;<br /></b
+            >Guests
+            can&#160;cancel&#160;free&#160;of&#160;charge&#160;14&#160;days&#160;before&#160;check-in&#160;No&#160;refund&#160;<br />in&#160;any&#160;case&#160;if&#160;canceled&#160;14&#160;days&#160;before&#160;check-in&#160;<b
+              >Flight&#160;cancellation-&#160;<br /></b
+            >Guest&#160;has&#160;to&#160;provide&#160;proof&#160;of
+            ticket&#160;with&#160;the&#160;name&#160;On&#160;verification,&#160;<br />Guests
+            can&#160;utilize&#160;advance&#160;amount&#160;within&#160;the&#160;current&#160;fiscal&#160;year&#160;on&#160;<br />prevailing&#160;rates.
+            OR&#160;avail&#160;refund&#160;with&#160;a&#160;deduction&#160;of&#160;20%&#160;of&#160;advance&#160;<br />amount&#160;<br /><b
+              >Land&#160;sliding-&#160;<br /></b
+            >Hotel&#160;administration&#160;shall&#160;confirm&#160;from&#160;competent
+            authority&#160;regarding&#160;<br />landslide&#160;Upon&#160;confirmation,
+            guest&#160;can&#160;utilize&#160;advance&#160;amount&#160;within&#160;<br />the
+            current&#160;fiscal&#160;year&#160;on&#160;prevailing&#160;rates.
+            OR&#160;avail&#160;refund&#160;with&#160;a&#160;<br />deduction&#160;of&#160;20%&#160;of
+            advance&#160;amount&#160;In&#160;case&#160;of&#160;any&#160;dispute,
+            decision&#160;<br />made&#160;by&#160;hotel&#160;administration&#160;shall&#160;be&#160;<br />final&#160;and&#160;unchallengeable.&#160;
+          </p>
+          <p
+            style="
+              position: absolute;
+              top: 1203px;
+              left: 91px;
+              white-space: nowrap;
+            "
+            class="ft113"
+          >
+            &#160;
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.3/jspdf.umd.min.js"></script>
+    <script src="scripts.js"></script>
+  </body>
+</html>
