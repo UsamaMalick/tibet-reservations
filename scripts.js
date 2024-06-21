@@ -1,4 +1,10 @@
-// Function to modify HTML content to replace all elements with id "guest-name" with "Nivyan"
+// Room rates object
+const roomRates = {
+  Standard: 20600,
+  Deluxe: 25600,
+  Executive: 30600,
+};
+
 function modifyHtmlContent(htmlContent) {
   const doc = new DOMParser().parseFromString(htmlContent, "text/html");
 
@@ -8,12 +14,21 @@ function modifyHtmlContent(htmlContent) {
   const numberOfNights = document.getElementById(
     "number-of-nights-value"
   ).textContent;
+  const numberOfRooms = document.getElementById("number-of-rooms");
   const guestName = document.getElementById("guest-name").value;
   const phoneNumber = document.getElementById("phone-number").value;
   const roomType = document.getElementById("room-type").value;
-  const discountAmount = document.getElementById("discount-amount").value;
+  const discountedAmount = document.getElementById("discount-amount").value;
   const advanceAmount = document.getElementById("advance-amount").value;
 
+  // Get room rate based on room type, default to 0 if room type not found
+  const roomRate = roomRates[roomType] || 0;
+  const totalCost =
+    (parseInt(numberOfRooms) || 0) *
+    (parseInt(roomRate) || 0) *
+    (parseInt(numberOfNights) || 0);
+  const remanningAmmount =
+    (parseInt(discountedAmount) || 0) - parseInt(advanceAmount || 0);
   // Replace text content of template with form data
   doc.getElementById("reservation-number").textContent = reservationNumber;
   doc.getElementById("arrival-date").textContent = arrivalDate;
@@ -22,8 +37,10 @@ function modifyHtmlContent(htmlContent) {
   doc.getElementById("guest-name-1").textContent = guestName;
   doc.getElementById("guest-name-2").textContent = guestName;
   doc.getElementById("phone-number").textContent = phoneNumber;
-  doc.getElementById("discount-amount").textContent = discountAmount;
+  doc.getElementById("discount-amount").textContent = discountedAmount;
   doc.getElementById("advance-amount").textContent = advanceAmount;
+  doc.getElementById("total-cost-value").textContent = totalCost;
+  doc.getElementById("remaning-cost").textContent = remanningAmmount;
 
   if (roomType === "Standard") {
     doc.getElementById("standard-deluxe-rooms-count").textContent =
@@ -37,7 +54,7 @@ function modifyHtmlContent(htmlContent) {
   return doc.documentElement.outerHTML;
 }
 
-// Function to handle form submission
+// Function to handle PDF Download
 function handleSubmit(event) {
   event.preventDefault();
   const pdfTemplateContainer = document.querySelector(
@@ -84,6 +101,29 @@ function handleSubmit(event) {
       console.error("Error generating PDF:", error);
       pdfTemplateContainer.style.display = "none";
     });
+}
+
+// Function to handle view PDF
+function handleView(event) {
+  event.preventDefault();
+  const pdfTemplateContainer = document.querySelector(
+    ".pdf-template-container"
+  );
+  const closeButtn = document.querySelector(".close-button");
+
+  closeButtn.style.display = "block";
+  pdfTemplateContainer.style.display = "block";
+}
+
+// Function to handle close PDF
+function handleClosePDF(event) {
+  event.preventDefault();
+  const pdfTemplateContainer = document.querySelector(
+    ".pdf-template-container"
+  );
+  const closeButtn = document.querySelector(".close-button");
+  closeButtn.style.display = "none";
+  pdfTemplateContainer.style.display = "none";
 }
 
 document.querySelector("form").addEventListener("submit", handleSubmit);

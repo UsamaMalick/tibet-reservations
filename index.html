@@ -15,6 +15,10 @@
     ></script>
   </head>
   <body>
+    <button class="close-button" onclick="handleClosePDF(event)">
+      <span class="close-icon"></span>
+    </button>
+  
     <div class="form-container">
       <h1>Confirmation Form</h1>
       <form>
@@ -44,6 +48,9 @@
           <p id="number-of-nights-text">Number of Nights:</p>
           <p id="number-of-nights-value" name="number-of-nights">0</p>
         </div>
+
+        <hr />
+        
         <label for="number-of-rooms">Number of Rooms:</label>
         <input
           type="number"
@@ -66,8 +73,15 @@
           <option value="Executive">Executive</option>
         </select>
 
+        <div class="total-cost">
+          <p id="total-cost-text">Total Cost:</p>
+          <p id="total-cost-value" name="">0</p>
+        </div>
 
-        <label for="discount-amount">Discount Amount (%):</label>
+        <hr />
+
+
+        <label for="discount-amount">Discounted Amount :</label>
         <input
           type="number"
           id="discount-amount"
@@ -89,7 +103,8 @@
           required
         />
 
-        <button type="button" onclick="handleSubmit(event)">Submit</button>
+        <button type="button" onclick="handleView(event)">View PDF</button>
+        <button type="button" onclick="handleSubmit(event)">Download PDF</button>
       </form>
     </div>
     
@@ -613,7 +628,8 @@
             "
             class="ft16"
           >
-            <b>PKR&#160;&#160;201,600/-&#160;</b>
+            <b>PKR <span id="total-cost-value">----</span> /-</b>
+
           </p>
           <p
             style="
@@ -674,13 +690,13 @@
             style="
               position: absolute;
               top: 834px;
-              left: 287px;
+              left: 296px;
               white-space: nowrap;
             "
             class="ft16"
           >
-            <b>&#160;&#160;PKR 95,760/-&#160;</b>
-          </p>
+          <b>PKR <span id="remaning-cost">-</span></b>
+        </p>
           <p
             style="
               position: absolute;

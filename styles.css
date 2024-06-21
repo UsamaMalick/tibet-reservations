@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
 }
+
 body {
   font-family: Arial, sans-serif;
   background-color: #f4f4f4;
@@ -14,10 +15,11 @@ body {
 
 .form-container {
   background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   width: 300px;
+  display: grid;
 }
 
 h1 {
@@ -40,30 +42,36 @@ input {
   margin-bottom: 15px;
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 3px;
+  background-color: #f2f4f6;
+  border: 1px solid #e8eaea;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 button {
   padding: 10px;
   font-size: 16px;
+  font-weight: bold;
   color: #fff;
-  background-color: #007bff;
+  background-color: #54833491;
   border: none;
-  border-radius: 3px;
+  border-radius: 6px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 button:hover {
-  background-color: #0056b3;
+  background-color: #548334;
 }
 
-#number-of-nights-text {
+#number-of-nights-text,
+#total-cost-text {
   font-weight: bold;
   margin-bottom: 5px;
 }
 
-#number-of-nights {
+#number-of-nights,
+#total-cost {
   font-size: 16px;
   border: 1px solid #ccc;
   padding: 5px 10px;
@@ -74,11 +82,15 @@ button:hover {
 
 select {
   width: 100%;
-  padding: 8px;
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin-bottom: 15px;
+  padding: 10px;
+  background-color: #f2f4f6;
+  border: 1px solid #e8eaea;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 select:focus {
@@ -86,7 +98,8 @@ select:focus {
   border-color: #007bff;
 }
 
-div.number-of-nights {
+div.number-of-nights,
+div.total-cost {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -96,6 +109,15 @@ p {
   margin: 0;
   padding: 0;
 }
+
+hr {
+  width: 100%;
+  border-top: 2px solid #e8eaea;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  padding: 0;
+}
+
 .ft10 {
   font-size: 12px;
   font-family: Times;
@@ -213,4 +235,36 @@ p {
   display: none;
   top: 24px;
   position: absolute;
+}
+
+.close-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  display: none;
+}
+.close-icon {
+  width: 20px;
+  height: 20px;
+  display: block;
+  position: relative;
+}
+.close-icon::before,
+.close-icon::after {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  background-color: black;
+}
+.close-icon::before {
+  transform: rotate(45deg);
+}
+.close-icon::after {
+  transform: rotate(-45deg);
 }
